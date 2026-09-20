@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELITE PRIME — A Library for Every Ambition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141311;
+    --ink-soft:#1d1b18;
+    --parchment:#f2ecdd;
+    --parchment-dim:#e7dfc9;
+    --emerald:#1f4638;
+    --emerald-deep:#153229;
+    --brass:#b4924c;
+    --brass-bright:#d4b06a;
+    --text-on-dark:#ece6d6;
+    --text-muted:#a49d8c;
+    --rule:#3a372f;
+    --radius:2px;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f2ecdd;
+    }
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text-on-dark);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
+    padding-top:env(safe-area-inset-top, 0px);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+    padding-left:env(safe-area-inset-left, 0px);
+    padding-right:env(safe-area-inset-right, 0px);
+  }
+  h1,h2,h3,p,span,div{overflow-wrap:break-word; word-break:break-word;}
+  ::selection{background:var(--brass); color:var(--ink);}
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    line-height:1.08;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px; width:100%;}
+  @media (max-width:480px){ .wrap{padding:0 18px;} }
+  .rule{height:1px;background:var(--rule);border:0;margin:0;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,19,17,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 0;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .logo span{color:var(--brass-bright);}
+  .nav-links{display:flex; gap:36px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    text-decoration:none; font-size:14.5px; color:var(--text-muted);
+    transition:color .2s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--text-on-dark);}
+  .nav-cta{
+    background:var(--brass); color:var(--ink); padding:10px 22px;
+    text-decoration:none; font-size:14px; font-weight:600;
+    border-radius:var(--radius);
+    transition:background .2s ease;
+  }
+  .nav-cta:hover{background:var(--brass-bright);}
+  .burger{display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px;}
+  .burger span{width:24px; height:2px; background:var(--text-on-dark);}
+  .mobile-menu{display:none; flex-direction:column; gap:0; padding:0 0 20px 0;}
+  .mobile-menu a{
+    padding:14px 0; text-decoration:none; color:var(--text-on-dark);
+    border-top:1px solid var(--rule); font-size:15px;
+  }
+
+  /* HERO */
+  .hero{
+    padding:100px 0 80px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-size:13px; color:var(--brass-bright); margin-bottom:18px;
+    font-family:'Work Sans', sans-serif; font-weight:500;
+  }
+  .hero h1{font-size:clamp(40px, 5.2vw, 64px); color:var(--text-on-dark);}
+  .hero h1 em{font-style:italic; color:var(--brass-bright); font-weight:400;}
+  .hero p.lede{
+    margin-top:22px; font-size:17px; color:var(--text-muted); max-width:46ch;
+  }
+  .hero-ctas{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--brass); color:var(--ink); padding:14px 28px;
+    text-decoration:none; font-weight:600; font-size:14.5px;
+    border-radius:var(--radius); border:1px solid var(--brass);
+    transition:all .2s ease;
+  }
+  .btn-primary:hover{background:transparent; color:var(--brass-bright);}
+  .btn-ghost{
+    padding:14px 28px; text-decoration:none; font-weight:500; font-size:14.5px;
+    color:var(--text-on-dark); border:1px solid var(--rule); border-radius:var(--radius);
+    transition:border-color .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--brass);}
+  .hero-stats{display:flex; gap:32px; margin-top:48px; flex-wrap:wrap;}
+  .stat{min-width:0;}
+  .stat b{display:block; font-family:'Fraunces',serif; font-size:26px; color:var(--brass-bright);}
+  .stat span{font-size:12.5px; color:var(--text-muted); letter-spacing:0.02em;}
+
+  /* Hero shelf visual */
+  .shelf-art{
+    position:relative; height:420px;
+    border-left:2px solid var(--rule);
+    padding-left:34px;
+  }
+  .spine-row{display:flex; align-items:flex-end; gap:8px; height:100%;}
+  .spine{
+    border-radius:2px 2px 0 0;
+    flex-shrink:0;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom:14px;
+    font-family:'Fraunces', serif; font-size:11px; color:rgba(0,0,0,0.55);
+    writing-mode:vertical-rl;
+    letter-spacing:0.04em;
+  }
+
+  /* SECTION SHARED */
+  section{padding:90px 0;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:52px; gap:24px; flex-wrap:wrap;
+  }
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:clamp(30px,3.4vw,42px); color:var(--text-on-dark); max-width:20ch;}
+  .section-head p{color:var(--text-muted); max-width:38ch; font-size:15px;}
+
+  /* CATEGORIES / SHELF */
+  .shelves{display:flex; flex-direction:column;}
+  .shelf-item{
+    display:grid;
+    grid-template-columns:220px 1fr 200px 120px;
+    align-items:center;
+    gap:24px;
+    padding:26px 0;
+    border-top:1px solid var(--rule);
+  }
+  .shelves .shelf-item:last-child{border-bottom:1px solid var(--rule);}
+  .shelf-cat{
+    font-family:'Fraunces', serif; font-size:13px; color:var(--brass-bright);
+    letter-spacing:0.03em;
+  }
+  .shelf-title{font-family:'Fraunces', serif; font-size:21px; color:var(--text-on-dark);}
+  .shelf-title span{display:block; font-family:'Work Sans',sans-serif; font-size:13px; color:var(--text-muted); margin-top:4px; font-weight:400;}
+  .shelf-price{font-size:15px; color:var(--text-on-dark); text-align:left;}
+  .shelf-price small{display:block; color:var(--text-muted); font-size:12px;}
+  .shelf-buy{
+    justify-self:end; text-decoration:none; font-size:13.5px; font-weight:600;
+    color:var(--ink); background:var(--parchment); padding:10px 20px; border-radius:var(--radius);
+    transition:background .2s ease; white-space:nowrap;
+  }
+  .shelf-buy:hover{background:var(--brass-bright);}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--parchment); color:var(--ink);}
+  .testimonials .eyebrow{color:var(--emerald);}
+  .testimonials .section-head h2, .testimonials .section-head p{color:var(--ink);}
+  .testimonials .section-head p{color:#5c5645;}
+  .t-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule);}
+  .t-card{background:var(--parchment); padding:32px 28px;}
+  .t-quote{font-family:'Fraunces', serif; font-size:18px; font-style:italic; line-height:1.5; color:#2a271f;}
+  .t-name{margin-top:22px; font-size:13.5px; font-weight:600; color:var(--emerald-deep);}
+  .t-role{font-size:12.5px; color:#77705c;}
+
+  /* FAQ */
+  .faq-list{max-width:760px;}
+  .faq-item{border-top:1px solid var(--rule);}
+  .faq-list .faq-item:last-child{border-bottom:1px solid var(--rule);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:0; color:var(--text-on-dark);
+    font-family:'Fraunces', serif; font-size:18px; padding:22px 0; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+  }
+  .faq-q .icon{font-size:20px; color:var(--brass-bright); flex-shrink:0; transition:transform .25s ease;}
+  .faq-item.open .icon{transform:rotate(45deg);}
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    color:var(--text-muted); font-size:14.5px;
+  }
+  .faq-a-inner{padding-bottom:22px; max-width:60ch;}
+  .faq-item.open .faq-a{max-height:200px;}
+
+  /* CTA BAND */
+  .cta-band{
+    background:var(--emerald); color:var(--text-on-dark);
+    padding:70px 0; text-align:center;
+  }
+  .cta-band h2{font-size:clamp(28px,3.6vw,40px); max-width:22ch; margin:0 auto 24px;}
+  .cta-band .btn-primary{background:var(--brass);}
+
+  /* FOOTER */
+  footer{padding:60px 0 40px; font-size:13.5px; color:var(--text-muted);}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px;}
+  .footer-grid h4{font-family:'Work Sans',sans-serif; font-size:13px; color:var(--text-on-dark); font-weight:600; margin-bottom:16px; letter-spacing:0.03em;}
+  .footer-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .footer-grid a{text-decoration:none; color:var(--text-muted); transition:color .2s ease;}
+  .footer-grid a:hover{color:var(--brass-bright);}
+  .footer-bottom{display:flex; justify-content:space-between; padding-top:24px; border-top:1px solid var(--rule); flex-wrap:wrap; gap:12px;}
+
+  @media (max-width:880px){
+    .nav-links, .nav-cta{display:none;}
+    .burger{display:flex;}
+    .hero{padding-top:60px;}
+    .hero-grid{grid-template-columns:1fr;}
+    .shelf-art{display:none;}
+    .shelf-item{grid-template-columns:1fr; gap:8px; padding:22px 0;}
+    .shelf-buy{justify-self:start;}
+    .t-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:28px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">ELITE <span>PRIME</span></div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#ebooks">Ebooks</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#ebooks" class="nav-cta">Browse Library</a>
+      <button class="burger" id="burgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home">Home</a>
+      <a href="#ebooks">Ebooks</a>
+      <a href="#about">About</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<section id="home" class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">DIGITAL LIBRARY · INSTANT DOWNLOAD</div>
+      <h1>A shelf built for <em>every</em><br>ambition you carry.</h1>
+      <p class="lede">ELITE PRIME is a curated library of ebooks across business, health, mindset and career — written to be read in an evening and used for years. Every title ₹99–₹299.</p>
+      <div class="hero-ctas">
+        <a href="#ebooks" class="btn-primary">Explore the Shelf</a>
+        <a href="#about" class="btn-ghost">Why ELITE PRIME</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>40+</b><span>Titles across 6 genres</span></div>
+        <div class="stat"><b>₹99</b><span>Starting price</span></div>
+        <div class="stat"><b>Instant</b><span>PDF delivery</span></div>
+      </div>
+    </div>
+    <div class="shelf-art">
+      <div class="spine-row">
+        <div class="spine" style="height:78%; width:34px; background:#c96b4f;">MONEY</div>
+        <div class="spine" style="height:95%; width:30px; background:#8fae7a;">HEALTH</div>
+        <div class="spine" style="height:60%; width:38px; background:#d4b06a;">MIND</div>
+        <div class="spine" style="height:85%; width:28px; background:#6a8caf;">CAREER</div>
+        <div class="spine" style="height:70%; width:32px; background:#a97ba8;">SELF</div>
+        <div class="spine" style="height:100%; width:26px; background:#c6a15b;">GROWTH</div>
+        <div class="spine" style="height:50%; width:36px; background:#7c9a8e;">FOCUS</div>
+        <div class="spine" style="height:88%; width:30px; background:#b5654f;">GOALS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section id="ebooks">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">THE LIBRARY</div>
+        <h2>Six shelves. One habit worth building.</h2>
+      </div>
+      <p>Each ebook is written to solve one problem clearly — no filler chapters, no 300-page padding.</p>
+    </div>
+
+    <div class="shelves">
+      <div class="shelf-item">
+        <div class="shelf-cat">BUSINESS &amp; MONEY</div>
+        <div class="shelf-title">The First ₹1 Lakh<span>A practical playbook for your first side income</span></div>
+        <div class="shelf-price">₹199 <small>PDF · 62 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-cat">HEALTH &amp; VITALITY</div>
+        <div class="shelf-title">Reset in 21 Days<span>Sleep, food and energy for people who sit all day</span></div>
+        <div class="shelf-price">₹149 <small>PDF · 48 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-cat">MINDSET &amp; GROWTH</div>
+        <div class="shelf-title">The Quiet Discipline<span>Building focus when motivation runs out</span></div>
+        <div class="shelf-price">₹129 <small>PDF · 40 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-cat">CAREER &amp; SKILLS</div>
+        <div class="shelf-title">Get Noticed, Get Hired<span>Resumes and interviews that actually land offers</span></div>
+        <div class="shelf-price">₹249 <small>PDF · 70 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-cat">RELATIONSHIPS</div>
+        <div class="shelf-title">Say It Better<span>Communication scripts for hard conversations</span></div>
+        <div class="shelf-price">₹99 <small>PDF · 34 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+      <div class="shelf-item">
+        <div class="shelf-cat">STUDY &amp; FOCUS</div>
+        <div class="shelf-title">The Deep Work Student<span>A study system for exams and long syllabi</span></div>
+        <div class="shelf-price">₹179 <small>PDF · 52 pages</small></div>
+        <a href="#contact" class="shelf-buy">Buy Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--ink-soft); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+  <div class="wrap" style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;">
+    <div>
+      <div class="eyebrow">WHY ELITE PRIME</div>
+      <h2 style="font-size:clamp(28px,3.2vw,38px); max-width:16ch;">Short books. Real change. No wasted pages.</h2>
+    </div>
+    <div>
+      <p style="color:var(--text-muted); font-size:15.5px; max-width:52ch;">Most ebooks are stretched to justify their price. ELITE PRIME does the opposite — every title is trimmed down to exactly what moves the needle, priced low enough that trying a new topic costs less than a coffee. Read on your phone, laptop or tablet, download instantly, keep it forever.</p>
+      <div class="hero-stats" style="margin-top:32px;">
+        <div class="stat"><b>Instant</b><span>Download link on payment</span></div>
+        <div class="stat"><b>Lifetime</b><span>Access, no subscriptions</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">READERS SAY</div>
+        <h2>Small books, honest results.</h2>
+      </div>
+      <p>A few notes from people who picked a shelf and started reading.</p>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="t-quote">"Finished it in two sittings and actually used the templates the same week."</div>
+        <div class="t-name">Ananya R.</div>
+        <div class="t-role">Get Noticed, Get Hired</div>
+      </div>
+      <div class="t-card">
+        <div class="t-quote">"No fluff. Felt like it was written by someone who'd actually done the thing."</div>
+        <div class="t-name">Rohit S.</div>
+        <div class="t-role">The First ₹1 Lakh</div>
+      </div>
+      <div class="t-card">
+        <div class="t-quote">"₹129 and it fixed a habit I'd been fighting for a year. Worth far more."</div>
+        <div class="t-name">Priya M.</div>
+        <div class="t-role">The Quiet Discipline</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">GOOD TO KNOW</div>
+        <h2>Frequently asked</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span>How do I receive the ebook after paying?</span><span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">You'll get an instant download link on the confirmation screen and by email — no waiting, no shipping.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>What format are the ebooks in?</span><span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Every title is a PDF, readable on phone, tablet, laptop or any e-reader.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Can I read before I buy?</span><span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Each listing includes a short preview of the first chapter so you know what you're getting.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Is there a refund policy?</span><span class="icon">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Since ebooks are delivered instantly, sales are final — but write in if something's genuinely wrong and it'll get sorted.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Pick a shelf. Start tonight.</h2>
+    <a href="#ebooks" class="btn-primary">Browse the Library</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px;">ELITE <span>PRIME</span></div>
+        <p style="max-width:34ch;">A digital library of short, practical ebooks — written to be finished, not just bought.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#ebooks">Ebooks</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@eliteprime.example">hello@eliteprime.example</a></li>
+          <li><a href="#">WhatsApp Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ELITE PRIME. All rights reserved.</span>
+      <span>Made for readers who finish what they start.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', function(){
+    var m = document.getElementById('mobileMenu');
+    m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){ document.getElementById('mobileMenu').style.display='none'; });
+  });
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
